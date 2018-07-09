@@ -1,0 +1,330 @@
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8"/>
+	<title>lojinha</title>
+	
+   <link rel="stylesheet" type="text/css" href="_css/estilo2.css"/>
+     <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+	<body>
+	  <div id="corpo">
+	  	<h1>loja</h1>
+	  	<form id="form">
+			<input type="text" name="campo_de_pesquisa"  id="produto" onchange="botao_clicado(this.id)" size="40"></input> 
+			<!-- <input type="button" id="botao"  class="clase"  ></input> -->
+		</form>
+		<div id="encontrados">
+			
+		</div>
+	
+		<div id="filtros_utilizados">
+			
+		</div>
+
+		<div id="menu">
+			<div id="categorias">
+					<h3>categorias</h3>
+			</div>
+			<div id="fretes">
+				<h3>frete</h3>
+			</div>
+		</div>
+
+		<div id="mostra_produtos">
+				<table id="tabela">
+					<thead>
+						<tr class="lista" size="100"></tr>
+					</thead>
+					<tbody class="lista_de_produtos">
+					</tbody>
+				</table>	
+		</div>
+
+     </div>
+		<script type="text/javascript">
+		const thiss = this;
+		var desabilita=false;
+		var a=0;//contem os dados
+		var b=0;//contem os dados com etra maiuscula ou minuscula
+		var filtro=[];//salva os filtros escolhidos pelo usuario
+		var array=[];
+		var menu=$("#menu");
+		var encontrados=$("#encontrados");
+		var result_elemento_filtrado=$("#filtros_utilizados");
+		var result_frete=$("#fretes");
+		var resul_cat= $("#categorias");
+        var resultado= $(".lista_de_produtos");
+		var cont_filtro=0;//o total de itens da minha lista que satisfaazerm o que foi digitado 
+		var digitado=0;//contem o que o usuario digitou no campo de pesquisa
+			function minuscula (mi) {//transforma a descricao do produto em maiusculas
+				for (var i = a.length - 1; i >= 0; i--) {
+					 a[i].descricao=a[i].descricao.toLowerCase();
+				};
+			}
+        	function botao_clicado (dig) {//faz um filtro dos produtos pelo que o usuario digitou
+        		digitado=document.getElementById('produto').value;//salva o que foi digitado na variavel digitado
+        		if(filtro.length==0){//se o array filtro estiver vazio 
+        			var result_elemento_filtrado=$("#filtros_utilizados").html("");//limpa o filtro digitado caso o usuario digite denovo
+        			var resultado = $('.lista_de_produtos').html("")//limpa o campo lista d produtos
+        			for (var i = b.length - 1; i >= 0; i--) {
+        				if (b[i].descricao.match(""+digitado+"")) {//verifica se o que esta na descricao bate com o q foi digitado
+        					cont_filtro++;//para mostrar a quantidade de itens encontrados
+        					var html2= '<tr class="tr"><td  class="clase_descricao">' + b[i].descricao + '</td><td  class="clase_preco">' + 'R$ '+ b[i].preco +'</td><td  class="clase_frete">' + b[i].frete + '</td></tr>' ;
+								resultado.append(html2);//imprime na tela os itens encontrados  
+        				};
+        			};									
+        			var elemt_filtro= '<ul class="ul_filtro_utilizado"><li id="'+digitado+'" onClick="filtrados(this.id)">' +digitado+'</li></ul>';//salva o elemento filtrado pela escrita em elemt_filtro
+					result_elemento_filtrado.append(elemt_filtro);//imprime na tela o elemento filtrado pela esscrita
+        			/*console.log(cont_filtro)*/
+        			encontrados=$("#encontrados").html("");
+        			var html6= '<tr class="cont_filtro"><td  class="clase_encontramos">encontramos '+ (cont_filtro) +' de ' + (a.length) + '</td></tr>' ;
+					encontrados.append(html6);
+					cont_filtro=0;
+        		}
+        		if (filtro.length>0) {
+        			imprimir();//chama a funcao imprimir para carregar os itens que estao contem a escrita em cima do que foi filtrado.
+        			alert("alersdsfg");
+        		};
+        	};
+			function busca (obj) {
+				minuscula();        		
+				var c=0;
+				var e=0;
+				var t=0;
+				var p=0;
+				var f=0;
+				var g=0;
+				var pro=[];//contem todos os meus produtos
+				var categoria_c=[];
+				var categoria_e=[];
+				var categoria_t=[];
+				var categoria_p=[];
+				var frete_p=[];//array com posisao do produtos com frete pago
+				var frete_g=[];
+				
+          		for (var i = obj.length - 1; i >= 0; i--) {
+          			var html= '<tr class="tr"><td  class="clase_descricao">' + obj[i].descricao + '</td><td  class="clase_preco">' + 'R$ '+ obj[i].preco +'</td><td  class="clase_frete">' + obj[i].frete + '</td></tr>' ;
+          			pro[i]=obj[i];//salva todos os produtos em um array desse modo posso adicionar mais produtos sem alterar o programa
+          			if (obj[i].categoria=="celulares") {
+          				categoria_c[c]= i;//salva a posisao que contem o produto com a categoria desejada
+          				c++;
+          			};
+          			if (obj[i].categoria=="eletro") {
+          				categoria_e[e]= i;//salva a posisao que contem o produto com a categoria desejada
+          				e++;
+          			};
+          			if (obj[i].categoria=="tv") {
+          				categoria_t[t]= i;//salva a posisao que contem o produto com a categoria desejada
+          				t++;
+          			};
+          			if (obj[i].categoria=="perfumes") {
+          				categoria_p[p]= i;//salva a posisao que contem o produto com a categoria desejada
+          				p++;
+          			};
+          			if (obj[i].frete=="pago") {
+          				frete_p[f]=i;//salva a posisao dos produtos com frete pago
+          				f++;
+          			};
+          			if (obj[i].frete=="gratis") {
+          				frete_g[g]=i;//salva a posisao dos produtos com frete pago
+          				g++;
+          			};
+					resultado.append(html);//mostra a lista completa dos produtos na tela + '<a href="index.html">Celulares</a>'
+          		};											/*disabled="'+desabilita+'"*/
+          		var box_cat='<ul><li class="button_cat" id="celulares"  onClick="botao_filtro_cat(this.id)" >Celulares ' +' ('+ categoria_c.length +')</li> <li class="button_cat" id="eletro" onClick="botao_filtro_cat(this.id)" > Eletro' + '('+ categoria_e.length +')</li> <li class="button_cat" id="tv" onClick="botao_filtro_cat(this.id)" >Tvs '+' ('+ categoria_t.length +')</li> <li class="button_cat" id="perfumes" onClick="botao_filtro_cat(this.id)">Perfumes '+'('+ categoria_p.length +')</li></ul>';
+				/*var box_cat='<input type="button" class="button_cat" value="celulares"> ('+ categoria_c.length +')</input> <br> <input type="button" class="button_cat" value="eletro"> ('+ categoria_e.length +')</input> <br> <input type="button" class="button_cat" value="tv"> ('+ categoria_t.length +')</input> <br> <input type="button" class="button_cat" value="perfumes"> ('+ categoria_p.length +')</input>';*/
+          		resul_cat.append(box_cat);//mostra o menu de acesso rapido categorias
+				var box_frete='<ul><li class="button_cat" id="pago" onClick="botao_filtro_cat(this.id)">Pago '+' ('+ frete_p.length +')</li><li class="button_cat" id="gratis" onClick="botao_filtro_cat(this.id)">Gratis '+ ' ('+ frete_g.length +')</li> </ul>';
+				result_frete.append(box_frete);
+			}
+			function botao_filtro_cat (x) {//pegar o filtro escolhido
+				//console.log("botao_filtro_cat")
+				if (!filtro.includes(x)) {//verifica se o filtro clicado esta contido no array filtro
+					var adicionar = filtro.push(x);//adiciona o filtro ao array filtro
+					///incerir o botao a baixo do campo pesquisa com o DOM
+					var elemt_filtro= '<ul class="ul_filtro_utilizado"><li id="'+x+'" onClick="filtrados(this.id)">'+x+'</li></ul>';
+					result_elemento_filtrado.append(elemt_filtro);//imprime o filtro clicado na tela a baixo do campo pesquisa
+					imprimir(x);//cama a funcao imprimir passando o filtro clicado 
+				};
+			}
+			function filtrados (argument) {//verifica os elementos filtrados 
+				//console.log("filtrados")
+				//console.log(argument)
+				for (var i = filtro.length - 1; i >= 0; i--) {
+					if (filtro[i]==argument) {//verifica se o filtro que esta sendo excluido esta contido no array filtro
+						var removed = filtro.splice(i, 1);//retira o filtro utilizado do array filtro 
+						var resultado = $('#'+argument+'').html("")//limpa o filtro utilizado da tela
+					};
+				};
+				if(argument==digitado){//caso seja usado o filtro pela escrita do usuario
+					var resultado = $('#'+argument+'').html("")//limpa o filtro utilizado da tela
+					//var limpa_texto = $('#produto').value("");//limpa o campo de pesquisa
+					var limpa_texto=document.getElementById('produto').value=''; // Limpa o campo
+					$(".blok_div").remove();//remove o botao de bloqueio da div filtro 
+				}
+				imprimir(a);//chama a funcao imprimir passando a que contem todos os produtos 
+			}
+			function imprimir (wer) {//funcao para imprimir na tela a lista de produtos 
+				if((filtro.includes('pago'))||(filtro.includes('gratis'))){
+					if( (filtro.includes('celulares'))||(filtro.includes('eletro'))||(filtro.includes('tv'))||(filtro.includes('perfumes'))  ) {
+						console.log("1")
+						var resultado = $('.lista_de_produtos').html("")
+						for (var i = a.length - 1; i >= 0; i--) {
+							if (digitado==0) {//digitado comtem o que o usuario digitou se for 0 nao digitou nada
+								if( (filtro.includes(a[i].categoria))&&(filtro.includes(a[i].frete)) ) {
+									var html2= '<tr class="tr"><td  class="clase_descricao">' + a[i].descricao + '</td><td  class="clase_preco">' + 'R$ '+ a[i].preco +'</td><td  class="clase_frete">' + a[i].frete + '</td></tr>' ;
+									resultado.append(html2);
+									cont_filtro++;
+									//array.push({ descricao: a[i].descricao , preco: a[i].preco, categoria: a[i].categoria, frete: a[i].frete }) ;
+								}
+							};	
+						}
+						encontrados=$("#encontrados").html("");
+						var html6= '<tr class="cont_filtro"><td  class="clase_encontramos">encontramos '+ (cont_filtro) +' de ' + (a.length) + '</td></tr>' ;
+						encontrados.append(html6);
+						cont_filtro=0;
+					}	
+				};
+				if (!(filtro.includes('pago'))&&(!(filtro.includes('gratis'))) ) {
+					if( (filtro.includes('celulares'))||(filtro.includes('eletro'))||(filtro.includes('tv'))||(filtro.includes('perfumes'))  )  {
+						console.log("2")
+						var resultado = $('.lista_de_produtos').html("")
+						for (var i = a.length - 1; i >= 0; i--) {
+							if (digitado==0) {//digitado comtem o que o usuario digitou se for 0 nao digitou nada
+								if(filtro.includes(a[i].categoria))  {
+									var html2= '<tr class="tr"><td  class="clase_descricao">' + a[i].descricao + '</td><td  class="clase_preco">' + 'R$ '+ a[i].preco +'</td><td  class="clase_frete">' + a[i].frete + '</td></tr>' ;
+									resultado.append(html2);
+									cont_filtro++;
+									//array.push({ descricao: a[i].descricao , preco: a[i].preco, categoria: a[i].categoria, frete: a[i].frete }) ;
+								}
+							}	
+						}
+						console.log(array)
+						encontrados=$("#encontrados").html("");
+						var html6= '<tr class="cont_filtro"><td  class="clase_encontramos">encontramos '+ (cont_filtro) +' de ' + (a.length) + '</td></tr>' ;
+						encontrados.append(html6);
+						cont_filtro=0;	
+					}
+				};	
+				if ((filtro.includes('pago'))||(filtro.includes('gratis')) ) {
+					if( (!(filtro.includes('celulares')))&&(!(filtro.includes('eletro')))&&(!(filtro.includes('tv')))&&(!(filtro.includes('perfumes')))  ) {
+						console.log("3")
+						var resultado = $('.lista_de_produtos').html("")
+						for (var i = a.length - 1; i >= 0; i--) {
+							if (digitado==0) {//digitado comtem o que o usuario digitou se for 0 nao digitou nada
+								if(filtro.includes(a[i].frete))  {
+									var html2= '<tr class="tr"><td  class="clase_descricao">' + a[i].descricao + '</td><td  class="clase_preco">' + 'R$ '+ a[i].preco +'</td><td  class="clase_frete">' + a[i].frete + '</td></tr>' ;
+									resultado.append(html2);
+									cont_filtro++;
+									//array.push({ descricao: a[i].descricao , preco: a[i].preco, categoria: a[i].categoria, frete: a[i].frete }) ;
+								}
+							}	
+						}
+						encontrados=$("#encontrados").html("");
+						var html6= '<tr class="cont_filtro"><td  class="clase_encontramos">encontramos '+ (cont_filtro) +' de ' + (a.length) + '</td></tr>' ;
+						encontrados.append(html6);	
+						cont_filtro=0;
+					}
+				};	
+				if (filtro.length==0)  {
+					console.log("4")
+					console.log(filtro)
+					var resultado = $('.lista_de_produtos').html("")
+					for (var i = a.length - 1; i >= 0; i--) {
+						if (digitado==0) {//digitado comtem o que o usuario digitou se for 0 nao digitou nada
+							var html2= '<tr class="tr"><td  class="clase_descricao">' + a[i].descricao + '</td><td  class="clase_preco">' + 'R$ '+ a[i].preco +'</td><td  class="clase_frete">' + a[i].frete + '</td></tr>' ;
+							resultado.append(html2);
+							cont_filtro++;
+							//array.push({ descricao: a[i].descricao , preco: a[i].preco, categoria: a[i].categoria, frete: a[i].frete }) ;
+						}	
+					}
+					encontrados=$("#encontrados").html("");
+					var html6= '<tr class="cont_filtro"><td  class="clase_encontramos">encontramos '+ (cont_filtro) +' de ' + (a.length) + '</td></tr>' ;
+					encontrados.append(html6);
+					cont_filtro=0;						
+				};
+			}
+			window.onload=function(){//pega o id do botao clicado e salva na variavel codigo
+	            $.ajax({
+	            url: 'arquivo2.json',
+	            type: 'GET',//forma de envio 
+	            dtaType: 'json',//indica o formato do carquivo recebido
+	          })
+	          .done(function(data) {
+	             a= data;
+	             b= data;
+	            thiss.busca(a);
+	            console.log("a",a)//busca o bloco previsao dentro do objeto
+	          })
+	          .fail(function() {//caso nao onsiga conectar
+	            console.log("error");
+	          })
+      		}
+		</script>
+	</body>
+<!-- [{ descricao: 'Celular Samsung Galaxy J5 Duos J500m Dourado 16gb Sem Juros', preco: 710, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Celular Samsung Galaxy J7 Prime 5.5 32gb + Chip Tim Grátis', preco: 999, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Celular Moto G5 Android 7.0 Tela 5 32gb Ouro + Chip Tim', preco: 789, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Celular Apple Iphone 7 Plus 128gb Special Edition Red', preco: 4129, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Celular Samsung Galaxy J1 Mini Prime Dual Chip 8gb (dourado)', preco: 354, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Celular Asus Zenfone 3 Max Cinza Dual Chip Tela 5.2 16gb 4g', preco: 780, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Celular Samsung Galaxy C5 32gb 4g 100% Original Novo 4gb Ram', preco: 1.199, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Celular Motorola Moto G4 Play 16gb Dual 4g 5 Xt1602 Branco', preco: 588, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Celular Blu Advance L2 Smartphone 4.0 Android 6.0 Orginal 3g', preco: 217, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Tv Samsung 32 Tela Trincada Nod: Un32gh4003gxzd', preco: 150, categoria: 'tv', frete: 'gratis' },
+ { descricao: 'Caneta Retoque Pinta Risco - Móveis Eletrodomésticos Branca', preco: 37, categoria: 'eletro', frete: 'gratis' },
+ { descricao: 'Smart Tv Led 40 Semp Toshiba Full Hd Wi-fi Tcl 40s4700s', preco: 1599, categoria: 'tv', frete: 'gratis' },
+ { descricao: 'Tv Led 32 Lg Hd 1 Hdmi 1 Usb Conversor Digital 32lw300c', preco: 999, categoria: 'tv', frete: 'gratis' },
+ { descricao: 'Máq. Cortar Cabelo Prof. Gama Italy 110 Ou 220 Frete Grátis', preco: 80, categoria: 'eletro', frete: 'gratis' },
+ { descricao: 'Modelador Cachos Nano Titanium Cacheador Preto Azul Vermelho', preco: 84, categoria: 'eletro', frete: 'gratis' },
+ { descricao: 'Celular Samsung Galaxy J1 Mini Dual Chip 8gb Wi-fi 2 Câmeras', preco: 338, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Celular Lg K8 4g 8gb Quad Core Dualchip Android 6.0 Original', preco: 465, categoria: 'celulares', frete: 'pago' },
+ { descricao: 'Celular Lenovo Vibe K6 5.0pol 16gb 2 Chips + Brinde', preco: 640, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Tv Led 32 Mtek Mk32cn9 Com Conversor Digital Usb Hdmi', preco: 900, categoria: 'tv', frete: 'gratis' },
+ { descricao: 'Celular Smartphone Lg K10 5.3 Dual Sim 16gb', preco: 570, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Tv Led 32 Lg Hd 1 Hdmi 1 Usb Conversor Digital 32lw300c', preco: 99, categoria: 'celulares', frete: 'gratis' },
+ { descricao: 'Tv Led 32 Polegadas Semp Toshiba Hd Usb Hdmi Dl325', preco: 980, categoria: 'tv', frete: 'gratis' },
+ { descricao: 'Tv Led 43 Polegadas Lg Full Hd Usb Hdmi - 43lw300c', preco: 1700, categoria: 'tv', frete: 'gratis' },
+ { descricao: 'Smart Tv Led 40 Polegadas Semp Toshiba Full Hd Wif', preco: 1592, categoria: 'tv', frete: 'pago' },
+ { descricao: 'Máquina De Acabamento Andis Gtx - 110v', preco: 345, categoria: 'eletro', frete: 'pago' },
+ { descricao: 'Smart Tv Led 32 Polegadas Samsung Hd Usb Hdmi - Un', preco: 1194, categoria: 'tv', frete: 'pago' },
+ { descricao: 'Caixa De Som Bluetooth Logitech X100 Portátil Wireless Orig', preco: 125, categoria: 'tv', frete: 'pago' },
+ { descricao: 'Tv 40 Polegadas Semp Toshiba Hd Usb Hdmi Dl4053f', preco: 1529, categoria: 'tv', frete: 'pago' },
+ { descricao: 'Smart Tv Monitor Lg 24 Polegadas Wifi Led Hd Hdmi Usb', preco: 818, categoria: 'tv', frete: 'pago' },
+ { descricao: 'Tv Monitor Led Panasonic 19 Tc-19d300b', preco: 510, categoria: 'tv', frete: 'gratis' },
+ { descricao: 'Chapinha Prancha Profissional Nano Titanium 1 1/4 Até 450ºf', preco: 40, categoria: 'eletro', frete: 'gratis' },
+ { descricao: 'Smart Tv Led 32 Samsung Hd Wi-fi Integrado Un32j4300agxzd', preco: 1160, categoria: 'tv', frete: 'gratis' },
+ { descricao: 'Tv Led 32 Samsung Hd 2 Hdmi 1 Usb Com 32nd450', preco: 999, categoria: 'tv', frete: 'gratis' },
+ { descricao: 'Tv Led 16 Philco Hd Com Conversor Digital - Ph16d10d', preco: 528, categoria: 'tv', frete: 'gratis' }, 
+ { descricao: 'Tv Philco 32 Ph32m3 * Com Defeito Tela', preco: 270, categoria: 'tv', frete: 'gratis' }, 
+ { descricao: 'Kit Wahl Máquina De Cortar Cabelo E Barba Deluxe Groom Pro', preco: 249, categoria: 'eletro', frete: 'gratis' }, 
+ { descricao: 'Magic Leverag Cachos Curl Formes Modelador 16 Rolinhos !', preco: 9, categoria: 'eletro', frete: 'gratis' }, 
+ { descricao: 'Celular Motorola Xt1672 Moto G5 Ouro 32gb + Chip Tim', preco: 849, categoria: 'celulares', frete: 'pago' }, 
+ { descricao: 'Celular Smartphone Lg K10 Dual-sim Tela 5.3 16gb Android', preco: 565, categoria: 'celulares', frete: 'pago' },
+ { descricao: 'Good Girl Eau De Parfum Carolina Herrera 80 Ml / Original', preco: 381, categoria: 'perfumes', frete: 'pago' }, 
+ { descricao: 'Perfume La Vie Est Belle Edp 75 Ml Original + 2 Amostras', preco: 286, categoria: 'perfumes', frete: 'pago' }, 
+ { descricao: 'Perfume Importado Ferrari Black 125ml Original + Brinde', preco: 80, categoria: 'perfumes', frete: 'pago' }, 
+ { descricao: 'Perfume La Vie Est Belle Edp 75ml | Lacrado 100% Original', preco: 292, categoria: 'perfumes', frete: 'pago' }, 
+ { descricao: 'Celular Smartphone Lg K5 8gb 5.0 Mp 3g Android 5.1 Original', preco: 339, categoria: 'celulares', frete: 'pago' }, 
+ { descricao: 'Chapinha Nano Titanium Babyliss Pro 1 1/4 Até 450ºf', preco: 130, categoria: 'eletro', frete: 'pago' },
+ { descricao: 'Chapa Profissional 200ºc / 230ºc Íons - Titanium 450 - Taiff', preco: 381, categoria: 'eletro', frete: 'pago' }, 
+ { descricao: 'Capa De Renda Branca Universal P/ Eletrodoméstico Batedeira', preco: 12, categoria: 'eletro', frete: 'pago' }, 
+ { descricao: 'Suporte Para Eletrodomésticos Até 250kg Ajustável Polipropil', preco: 137, categoria: 'eletro', frete: 'pago' },
+ { descricao: 'Gira Facil Cromado - Suporte Para Eletrodoméstico', preco: 160, categoria: 'eletro', frete: 'pago' }, 
+ { descricao: 'Pés Para Eletrodomésticos - Gira Facil Cromado', preco: 250, categoria: 'eletro', frete: 'pago' },
+ { descricao: 'Suporte Para Eletrodomésticos Gira Fácil Branco', preco: 135, categoria: 'eletro', frete: 'pago' },
+ { descricao: 'Perfume Jean Paul Gaultier Classic 100ml Original E Lacrado', preco: 266, categoria: 'perfumes', frete: 'pago' }, 
+ { descricao: 'Moveis Planejados Casa Completa', preco: 15000, categoria: 'eletro', frete: 'pago' }, 
+ { descricao: 'Pés Para Eletrodomésticos - Gira Facil Cromado', preco: 210, categoria: 'eletro', frete: 'pago' }, 
+ { descricao: 'Perfume Silver Scent 100ml Jacques Bogart 100% Original', preco: 99, categoria: 'perfumes', frete: 'pago' },
+ { descricao: 'Perfume Arsenal Gold Masculino Edp 100ml - 100% Original.', preco: 122, categoria: 'perfumes', frete: 'pago' }, 
+ { descricao: '3 Perfume Up Essência Fragrâncias 22, 27, 30, 32, 36, 44', preco: 50, categoria: 'perfumes', frete: 'gratis' },
+ { descricao: 'Perfume Traduções Gold 19 Masculino One Million Hinode', preco: 120, categoria: 'perfumes', frete: 'gratis' }, 
+ { descricao: 'Perfume Dolce &amp; Gabbana 100ml Feminino Original E Lacrado', preco: 246, categoria: 'perfumes', frete: 'gratis' },
+ { descricao: 'Perfume One Million 100ml Usa 100% Original- Selo Original', preco: 265, categoria: 'perfumes', frete: 'pago' },
+ { descricao: 'Perfume Ferrari Black 125ml 100% Original Masculino', preco: 76, categoria: 'perfumes', frete: 'pago' },
+ { descricao: 'Perfume Silver Scent 100ml Jacques Bogart 100% Original', preco: 70, categoria: 'perfumes', frete: 'pago' } ]
+ -->
+
+</html>
+

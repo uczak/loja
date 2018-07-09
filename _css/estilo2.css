@@ -1,0 +1,126 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');/*importa uma fonte do google*/
+@font-face{
+    font-family: 'fontelogo';/*nome da fonte para o arquivo css*/
+    src: url("../_fonts/bubblegum-sans-regular.otf");/*carrega uma fonte diferente */
+}
+
+
+
+
+  body{
+        background-image:url("../_imagem/imagem.jpg"); /*muda a cor do fundo */
+        color: rgb(0,0,0);/*cor dasletras*/
+        font-family: arial,sans-serif;/*tipo de fonte e sem serifa (trasso em baixo em em cima das letras)*/
+    }
+	h1{ /* formata meu titulo h1 */
+		text-align: center; /* centraliza o texto */
+		font-family: fontelogo,sans-serif; /* busca a fonte fonte logo */
+	}
+	h3{
+		text-align: center;
+		font-family: fontelogo, sans-serif;
+	}
+	form#form{
+		display: block;
+		text-align: center;
+	}
+
+	div#encontrados{
+		margin: 0px 0px 0px 410px;
+		display: block;
+		font-family: calibri,sans-serif;
+		text-align: center;
+		color: rgba(150,150,150,0.9);
+	}
+	div#filtros_utilizados{
+		text-align: center;
+		width: 750px;
+		height: 30px;
+		display: block;
+		/* box-shadow: 0px 0px 2px black; */
+		margin: -10px auto -65px auto;/*define as margens e deixa o navegador defir as auto margens (automatico)*/
+	}
+	div#filtros_utilizados ul.ul_filtro_utilizado{
+		display: inline-block;/*coloca os itens em linha */
+		list-style: none;/*retira os marcadores do itens do menu*/
+        text-transform: uppercase;/*deixa as letras em maiusculas*/
+        font-size: 10pt;
+	}
+	div#filtros_utilizados li.li_filtro_utilizado{
+	}
+	input#produto{
+		border: 2px;
+		border-radius: 15px;
+		/* border-bottom-left-radius: 15px;
+		border-top-left-radius: 15px; */
+		background-color: rgb(250,250,250);
+		width: 350px;
+		height: 33px;
+		margin: 0px -4px 0px 0px;/*define as margens e deixa o navegador defir as auto margens (automatico)*/
+		box-shadow: 0px 0px 2px black;/*lateral ,vertical, espalhamento da sombra, cor  */
+       /* padding: 8px; /*e usado para criar espaço por dentro do container ,por fora e a margem por dentro e pading*/
+	}
+	div#menu{
+		display: block;
+		float: left;/*flutuar a esquerda*/
+		height: 250px;
+		width: 180px;
+		margin: 200px 0px 0px 0px ; /* cima , direita, baixo esquerda */
+		background-color: rgb(200,200,200);
+		box-shadow: 1.5px 1.5px 2.5px rgb(106,207,255);/*lateral ,vertical, espalhamento da sombra, cor  */
+	}
+	
+	div#corpo{
+		display: block;
+		width: 950px;/* lergura do corpo */
+		background-color: rgb(230,230,230);
+		margin: -22px auto 0px auto;/*define as margens e deixa o navegador defir as auto margens (automatico)*/
+		box-shadow: 0px 0px 10px black;/*lateral ,vertical, espalhamento da sombra, cor  */
+        padding: 10px; /*e usado para criar espaço por dentro do container ,por fora e a margem por dentro e pading*/
+	}
+	div#mostra_produtos{
+		display: block;
+		height: 550px;
+		width: 600px;/* lergura do corpo */
+		background-color: rgb(230,230,230);
+		margin: 80px auto 0px 200px;/*define as margens e deixa o navegador defir as auto margens (automatico)*/
+		/*box-shadow: 0px 0px 2px black;/*lateral ,vertical, espalhamento da sombra, cor  */
+        padding: 10px; /*e usado para criar espaço por dentro do container ,por fora e a margem por dentro e pading*/
+        overflow: auto;/*cria o scroll na div*/
+	}
+	
+	table#tabela td.clase_descricao{
+		margin-right: -1px;
+		padding: 13px;
+		font-family: calibri,sans-serif;
+		font-size: 13pt;
+		color: rgb(30,30,30);
+		border-bottom: 1px solid rgb(200,200,200);
+	}
+	table#tabela td.clase_preco{
+		text-align: right;
+		font-family: arial,sans-serif;
+		font-size: 12pt;
+		color: rgb(30,30,30);
+
+		display: block;
+		float: top-right;
+		margin-left: -1px;
+		padding-left: 10px;
+		font-weight: bolder;/*negrito*/
+	}
+	table#tabela td.clase_frete{
+		font-family: fontelogo,sans-serif;
+		font-size: 12pt;
+		color: rgb(29,235,39);
+		margin: 8px 0px 0px 0px;
+		padding-left: 30px; 
+		text-align: right;
+
+		display: block;
+		float: bottom-right;
+		border-bottom: 1px solid rgb(200,200,200);
+	}
+
+	
