@@ -1,0 +1,1229 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pxcoiexn</name>
+    </assembly>
+    <members>
+        <member name="T:Bergs.Pxc.Pxcoiexn.ChaveEstrangeiraInexistenteException">
+            <summary>Exceção para chave estrangeira inexistente</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.ChaveEstrangeiraInexistenteException.#ctor(System.String)">
+            <summary>Não é possível adicionar ou alterar registros, pois é necessário que eles tenham um registro relacionado na tabela XXXXX.</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.ChaveEstrangeiraReferenciadaException">
+            <summary>
+            Exceção de múltiplos registros afetados pela execução do comando
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.ChaveEstrangeiraReferenciadaException.#ctor(System.String)">
+            <summary>O registro não pode ser excluído ou alterado porque existe uma ou mais tabelas que incluem registros relacionados a ele.</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql">
+            <summary>
+            Automatiza parte da montagem de comandos SQL.
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.comando">
+            <summary>
+            SQL que será executado na base de dados
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.temporario">
+            <summary>
+            SQL temporário utilizado para método Incluir
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.ComandoSql">
+            <summary>
+            Objeto de comando com parameter e que devem ter "@" no nome, ex.: SELECT * FROM T WHERE CAMPO1 = @campo1
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.#ctor">
+            <summary>
+            Construtor da classe de comando SQL
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoSet(System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo, já incluindo a vírgula e o igual
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="campo">CampoTabela da base dados</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoInsert(System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para o comando Insert. A variável Temporario receberá o conteúdo para o "VALUES"
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="campo">CampoTabela da base dados</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,System.Boolean)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="controleWhere">Indica se deve haver controle do WHERE</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="operadorUnario">igual, maior, menor, etc...</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario,System.Boolean)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="operadorUnario">igual, maior, menor, etc...</param>
+            <param name="controleWhere">Indica se deve haver controle do WHERE</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE e os ANDs à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="campo">CampoTabela da base dados</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo,System.Boolean)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE e os ANDs à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="campo">CampoTabela da base dados</param>
+            <param name="controleWhere">Indica se deve haver controle do WHERE</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="campo">CampoTabela da base dados</param>
+            <param name="operadorUnario">igual, maior, menor, etc...</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario,System.Boolean)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="campo">CampoTabela da base dados</param>
+            <param name="operadorUnario">igual, maior, menor, etc...</param>
+            <param name="controleWhere">Indica se deve haver controle do WHERE</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorLogico)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="operadorUnario">igual, maior, menor, etc...</param>
+            <param name="operadorLogico">AND OR XOR</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorLogico,System.Boolean)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="operadorUnario">igual, maior, menor, etc...</param>
+            <param name="operadorLogico">AND OR XOR</param>
+            <param name="controleWhere">Indica se deve haver controle do WHERE</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorLogico)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="campo">CampoTabela da base dados</param>
+            <param name="operadorUnario">igual, maior, menor, etc...</param>
+            <param name="operadorLogico">AND OR XOR</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorLogico,System.Boolean)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="campo">CampoTabela da base dados</param>
+            <param name="operadorUnario">igual, maior, menor, etc...</param>
+            <param name="operadorLogico">AND OR XOR</param>
+            <param name="controleWhere">Indica se deve haver controle do WHERE</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo,Bergs.Pxc.Pxcoiexn.BD.ICampo,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="campo">CampoTabela da base dados</param>
+            <param name="campo2">CampoTabela da base de dados usado para o operador lógico BETWEEN</param>
+            <param name="operadorUnario">igual, maior, menor, etc...</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo,Bergs.Pxc.Pxcoiexn.BD.ICampo,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario,System.Boolean)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="campo">CampoTabela da base dados</param>
+            <param name="campo2">CampoTabela da base de dados usado para o operador lógico BETWEEN</param>
+            <param name="operadorUnario">igual, maior, menor, etc...</param>
+            <param name="controleWhere">Indica se deve haver controle do WHERE</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontarCampoWhere(System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo,Bergs.Pxc.Pxcoiexn.BD.ICampo,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario,Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorLogico,System.Boolean)">
+            <summary>
+            Acrescenta ao SQL um campo e seu conteúdo para a cláusula WHERE. Já inclui o WHERE à cláusula
+            </summary>
+            <param name="nomeCampo">Nome do campo na base de dados</param>
+            <param name="campo">CampoTabela da base dados</param>
+            <param name="campo2">CampoTabela da base de dados usado para o operador lógico BETWEEN</param>
+            <param name="operadorUnario">igual, maior, menor, etc...</param>
+            <param name="operadorLogico">AND OR XOR</param>
+            <param name="controleWhere">Indica se deve haver controle do WHERE</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.MontaCampoDate(System.Text.StringBuilder,System.String,Bergs.Pxc.Pxcoiexn.BD.ICampo)">
+            <summary>
+            Monta o campo e o parameter
+            </summary>
+            <param name="sb"></param>
+            <param name="nomeCampo"></param>
+            <param name="campo"></param>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.Parametros">
+            <summary>Parâmetros do comando SQL</summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.Comando">
+            <summary>
+            SQL que será executado na base de dados
+            </summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.Temporario">
+            <summary>
+            SQL temporário utilizado para método Incluir
+            </summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.QueryFormatada">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario">
+            <summary>
+            Operadores unários para o comando SQL
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario.Maior">
+            <summary>Maior</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario.MaiorIgual">
+            <summary>Maior ou igual</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario.Menor">
+            <summary>Menor</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario.MenorIgual">
+            <summary>Menor ou igual</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario.Diferente">
+            <summary>Diferente</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario.Igual">
+            <summary>Igual</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario.Like">
+            <summary>Like</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario.IsNull">
+            <summary>Is Null</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario.IsNotNull">
+            <summary>Is Not Null</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorUnario.Between">
+            <summary>Between</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorLogico">
+            <summary>
+            Operadores lógicos para o comando SQL
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorLogico.And">
+            <summary>AND - E lógico para montagem do SQL</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorLogico.Or">
+            <summary>OR - OU lógico para montagem do SQL</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.ConstrutorSql.OperadorLogico.Xor">
+            <summary>XOR - 'XOU' lógico para montagem do SQL</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.RegistroDuplicadoException">
+            <summary>Exceção de chave primária duplicada</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.RegistroDuplicadoException.#ctor(System.String)">
+            <summary>As alterações solicitadas para a tabela não foram satisfatórias já que criariam valores duplicados no índice, chave primária ou relação. Altere os dados no campo ou campos que contêm os dados duplicados, remova o índice ou redefina o índice para possibilitar entradas duplicadas e tente novamente.</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BancoDadosException">
+            <summary>
+            Exceção de múltiplos registros afetados pela execução do comando
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BancoDadosException.#ctor">
+            <summary>
+            Construtora da classe
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.ViolacaoArquiteturalException">
+            <summary>
+            Exceção de violação de integridade arquitetural
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.ViolacaoArquiteturalException.#ctor">
+            <summary>
+            Construtora da classe
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.ViolacaoBDException">
+            <summary>
+            Exceção de violação de integridade arquitetural
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.ViolacaoBDException.#ctor">
+            <summary>
+            Construtora da classe
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Interface.AplicacaoTela">
+            <summary>Aplicação que implementa a interface</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Aplicacao">
+            <summary>Classe de infraestrutura</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Aplicacao.infra">
+            <summary>
+             Console do MMC disponível para a aplicação.
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Aplicacao.#ctor">
+            <summary>
+            Construtora da classe
+            </summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.Aplicacao.Infra">
+            <summary>
+             Console do MMC disponível para a aplicação.
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.AplicacaoTela.#ctor(System.String)">
+            <summary>Construtora da classe</summary>
+            <param name="caminho">Caminho do banco de dados Access</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.AplicacaoTela.#ctor(System.String,System.String)">
+            <summary>Construtora da classe</summary>
+            <param name="caminho">Caminho do banco de dados Access</param>
+            <param name="provider">Padrão: "Microsoft.Jet.OLEDB.4.0"</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.AplicacaoTela.#ctor">
+            <summary>Construtora da classe</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.AplicacaoTela.Abrir">
+            <summary>Abre a conexão ao banco de dados</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.AplicacaoTela.Abrir(System.String)">
+            <summary>Abre a conexão ao banco de dados</summary>
+            <param name="caminho">Caminho do banco de dados Access</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.AplicacaoTela.Dispose">
+            <summary>Libera os objetos da memória e fecha o banco de dados</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.CampoObrigatorioMensagem">
+            <summary>Operação realizada com sucesso</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Mensagem">
+            <summary>
+            Classe de retorno de mensagens
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Mensagem.mensagem">
+            <summary>
+            Conteúdo da mensagem
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Mensagem.#ctor">
+            <summary>
+            Construtor da classe
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Mensagem.#ctor(System.Exception)">
+            <summary>
+            Construtor da classe
+            </summary>
+            <param name="excecao"></param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Mensagem.#ctor(System.String)">
+            <summary>
+            Construtor da classe
+            </summary>
+            <param name="mensagem"></param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Mensagem.ToString">
+            <summary>
+            Mensagem
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.Mensagem.ParaOperador">
+            <summary>
+            Mensagem retornada para o operador
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.CampoObrigatorioMensagem.#ctor(System.String)">
+            <summary>
+            Campo obrigatório {0} não foi informado
+            </summary>
+            <param name="campo"></param>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista">
+            <summary>Célula de uma linha da lista</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.#ctor">
+            <summary>Construtora da célula</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.#ctor(System.String,System.Boolean)">
+            <summary>Construtora da célula</summary>
+            <param name="conteudo">Conteúdo</param>
+            <param name="visivel">Indica se é visível ou não</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.#ctor(System.String)">
+            <summary>Construtora da célula</summary>
+            <param name="conteudo">Conteúdo da célula</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.#ctor(System.String,Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.AlinhamentoCelula,System.Boolean)">
+            <summary>Construtora da célula</summary>
+            <param name="conteudo">Conteúdo da célula</param>
+            <param name="alinhamento">Alinhamento do conteúdo</param>
+            <param name="visivel">Indica se é visível ou não</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.#ctor(System.String,Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.AlinhamentoCelula)">
+            <summary>Construtora da célula</summary>
+            <param name="conteudo">Conteúdo da célula</param>
+            <param name="alinhamento">Alinhamento do conteúdo</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.#ctor(System.String,Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.AlinhamentoCelula,System.Boolean,System.Int32)">
+            <summary>Construtora da célula</summary>
+            <param name="conteudo">Conteúdo da célula</param>
+            <param name="alinhamento">Alinhamento do conteúdo</param>
+            <param name="visivel">Indica se é visível ou não</param>
+            <param name="largura">Largura máxima da coluna</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.#ctor(System.String,Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.AlinhamentoCelula,System.Int32)">
+            <summary>Construtora da célula</summary>
+            <param name="conteudo">Conteúdo da célula</param>
+            <param name="alinhamento">Alinhamento do conteúdo</param>
+            <param name="largura">Largura máxima da coluna</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.#ctor(System.String,System.Int32)">
+            <summary>Construtora da célula</summary>
+            <param name="conteudo">Conteúdo da célula</param>
+            <param name="largura">Largura máxima da coluna</param>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.Conteudo">
+            <summary>Conteúdo da célula</summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.Visivel">
+            <summary>Indica se o conteúdo é visível na lista</summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.Alinhamento">
+            <summary>Alinhamento do conteúdo da célula</summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.Largura">
+            <summary>Largura máxima da coluna</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.AlinhamentoCelula">
+            <summary>Alinhamento do conteúdo da célula</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.AlinhamentoCelula.Esquerda">
+            <summary>Alinhamento à esquerda</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.AlinhamentoCelula.Direita">
+            <summary>Alinhamento à direita</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista.AlinhamentoCelula.Centralizado">
+            <summary>Alinhamento à centralizado</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Interface.LinhaLista">
+            <summary>Conjunto de células para impressão na tela</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.LinhaLista.#ctor">
+            <summary>Construtora da classe</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.LinhaLista.ToString">
+            <summary>Retorna todas células concatenadas</summary>
+            <returns></returns>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.Interface.LinhaLista.Celulas">
+            <summary>Células da linha da lista</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.ConverteXml`1">
+            <summary>Classe de conversão de tipos</summary>
+            <typeparam name="T">Tipo da classe utilizado na conversão</typeparam>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.ConverteXml`1.T2String(`0)">
+            <summary>Converte um tipo de classe ou estrutura T em String</summary>
+            <param name="classe">Objeto a ser convertido</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.ConverteXml`1.String2T(System.String)">
+            <summary>Converte um tipo string XML em um tipo de classe ou struct</summary>
+            <param name="xml">XML serializado ou string da área da estrutura</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.ConverteXml`1.Byte2T(System.Byte[])">
+            <summary>Converte um vetor de bytes em uma estrutura</summary>
+            <param name="vetor">Vetor de bytes</param>
+            <returns>Struct do tipo T</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.ConverteXml`1.Char2T(System.Char[])">
+            <summary>Converte um vetor de chars em uma estrutura</summary>
+            <param name="vetor">Vetor de chars</param>
+            <returns>Struct do tipo T</returns>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.OperacaoRealizadaMensagem">
+            <summary>Operação realizada com sucesso</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.OperacaoRealizadaMensagem.#ctor">
+            <summary>
+            Operação realizada com sucesso
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.OperacaoRealizadaMensagem.#ctor(System.String)">
+            <summary>
+            {0} realizada com sucesso
+            </summary>
+            <param name="operacao"></param>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.Access">
+            <summary>
+            Classe de acesso ao Access
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.Access.Connection">
+            <summary>
+            Obejto de conexão ao banco de dados
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.Access.database">
+            <summary>Caminho do banco de dados Access</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.Access.#ctor">
+            <summary>Construtora da classe para acesso ao um banco Access</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.Access.#ctor(System.String)">
+            <summary>Construtora da classe para acesso ao um banco Access</summary>
+            <param name="database">Caminho completo do arquivo Access</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.Access.#ctor(System.String,System.String)">
+            <summary>Construtora da classe para acesso ao um banco Access</summary>
+            <param name="database">Caminho completo do arquivo Access</param>
+            <param name="provider">Nome do provedor da conexão ao Access</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.Access.Abrir">
+            <summary>Abre uma conexão com o Access</summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.Access.Dispose">
+            <summary>
+            Encerra a conexão ao banco de dados, caso tenha uma transação aberta, a mesma terá um Roolback executado
+            </summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.BD.Access.Transacao">
+            <summary>
+            Retorna a transação corrente
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Formatador">
+            <summary>
+            Disponibiliza formatações de objetos para String: cpf, cnpj, data, datahora, agencia, conta
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Formatador.GetFormat(System.Type)">
+            <summary></summary>
+            <param name="formatType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Formatador.Format(System.String,System.Object,System.IFormatProvider)">
+            <summary>Formatos: "cpf", "cnpj", "data", "datahora", "conta" e "agencia"</summary>
+            <param name="format"></param>
+            <param name="argumento"></param>
+            <param name="formatProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Infra">
+            <summary>
+            Concentrador da infra-estrutura MMC - Meta Modelo C# - ConsoleApplication
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Infra.CriarEscopoTransacional">
+            <summary>
+            Cria um escopo transacional para atualização dos campos na tabela
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Infra.FimTransacao(System.Boolean)">
+            <summary>
+            Método acionado no Dispose do escopotransacional ou na execução do EfetivarTransacao
+            </summary>
+            <param name="Commit"></param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Infra.RetornarSucesso(Bergs.Pxc.Pxcoiexn.Mensagem)">
+            <summary>
+            Retorna sucesso
+            </summary>
+            <param name="mensagem">Mensagem a ser retornada</param>
+            <returns>Retorna sucesso</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Infra.RetornarSucesso``1(``0,Bergs.Pxc.Pxcoiexn.Mensagem)">
+            <summary>
+            Retorna sucesso com os dados
+            </summary>
+            <typeparam name="T">Tipo de dado a ser retornado</typeparam>
+            <param name="dados">Dados de retorno</param>
+            <param name="mensagem">Mensagem a ser retornada</param>
+            <returns>Retorna sucesso</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Infra.RetornarFalha``1(Bergs.Pxc.Pxcoiexn.Mensagem)">
+            <summary>
+            Retorna falha com a mensagem
+            </summary>
+            <typeparam name="T">Tipo de dado a ser retornado</typeparam>
+            <param name="mensagem">Mensagem a ser retornada</param>
+            <returns>Retorna falha</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Infra.RetornarFalha(Bergs.Pxc.Pxcoiexn.Mensagem)">
+            <summary>
+            Retorna falha com a mensagem
+            </summary>
+            <param name="mensagem">Mensagem a ser retornada</param>
+            <returns>Retorna falha</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Infra.InstanciarBD``1">
+            <summary>Instancia uma classe de BD</summary>
+            <typeparam name="T">Tipo de classe de Bergs.Pxc.Pxcoiexn.BD.AplicacaoDados</typeparam>
+            <returns>Instância da classe</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Infra.InstanciarRN``1">
+            <summary>Instancia uma classe de RN</summary>
+            <typeparam name="T">Tipo de classe de Bergs.Pxc.Pxcoiexn.RN.AplicacaoRegraNegocio</typeparam>
+            <returns>Instância da classe</returns>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Retorno">
+            <summary>
+            Estrutura de retorno
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Retorno.#ctor(System.Boolean,Bergs.Pxc.Pxcoiexn.Mensagem)">
+            <summary>
+            Construtor da classe
+            </summary>
+            <param name="Ok"></param>
+            <param name="mensagem">Mensagem, no caso de existir</param>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Retorno.Ok">
+            <summary>
+            Indica se o método foi realizado com sucesso
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Retorno.Mensagem">
+            <summary>
+            Mensagem retornada pelo método
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.RN.EscopoTransacional">
+            <summary>Classe que controla o escopo transacional de acesso ao banco de dados</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.RN.EscopoTransacional.OnFimTransacao">
+            <summary>
+            Método que será acionado ao final da transação, ou pelo Dispose ou pelo EfetivarTransacao
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.RN.EscopoTransacional.Dispose">
+            <summary>Método que encerra o escopo, se não tiver efetivado a transação, é realizado um Roolback na base</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.RN.EscopoTransacional.EfetivarTransacao">
+            <summary>Realiza um commit na base após a criação do EscopoTransacional</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.OperadorUnario">
+            <summary>
+            Operadores unários para o comando SQL
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorUnario.Maior">
+            <summary>Maior</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorUnario.MaiorIgual">
+            <summary>Maior ou igual</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorUnario.Menor">
+            <summary>Menor</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorUnario.MenorIgual">
+            <summary>Menor ou igual</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorUnario.Diferente">
+            <summary>Diferente</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorUnario.Igual">
+            <summary>Igual</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorUnario.Like">
+            <summary>Like</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorUnario.IsNull">
+            <summary>Is Null</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorUnario.IsNotNull">
+            <summary>Is Not Null</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorUnario.Between">
+            <summary>Between</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.OperadorLogico">
+            <summary>
+            Operadores lógicos para o comando SQL
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorLogico.And">
+            <summary>AND - E lógico para montagem do SQL</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorLogico.Or">
+            <summary>OR - OU lógico para montagem do SQL</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.OperadorLogico.Xor">
+            <summary>XOR - 'XOU' lógico para montagem do SQL</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Interface.ItemMenu">
+            <summary>
+            Item de menu utilizado na Tela
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Interface.ItemMenu.Item">
+            <summary>Opções de menu</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Interface.ItemMenu.OnExecuta">
+            <summary>Função a ser chamada quando a opção for acionada</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Interface.ItemMenu.InterrompeExecucao">
+            <summary>Indica se é uma opção que interrompe a execução do controle de menu</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Interface.ItemMenu.SolicitaTecleAlgo">
+            <summary>Indica se é uma opção que apresenta Console.ReadKey() após sua execução</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.ItemMenu.#ctor(System.Collections.Generic.KeyValuePair{System.Int32,System.String},Bergs.Pxc.Pxcoiexn.Interface.Menu.DelegateExecutaMenu,System.Boolean)">
+            <summary>
+            Construtor do item de menu
+            </summary>
+            <param name="item">Item de menu com seu número e descrição para listagem na tela</param>
+            <param name="onExecuta">Método a ser chamado quando o item de menu for selecionado</param>
+            <param name="interrompeExecucao">Indica se deve interromper a execução do controle de menu ao ser acionado esse item</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.ItemMenu.#ctor(System.Collections.Generic.KeyValuePair{System.Int32,System.String},Bergs.Pxc.Pxcoiexn.Interface.Menu.DelegateExecutaMenu,System.Boolean,System.Boolean)">
+            <summary>
+            Construtor do item de menu
+            </summary>
+            <param name="item">Item de menu com seu número e descrição para listagem na tela</param>
+            <param name="onExecuta">Método a ser chamado quando o item de menu for selecionado</param>
+            <param name="interrompeExecucao">Indica se deve interromper a execução do controle de menu ao ser acionado esse item</param>
+            <param name="solicitaTecleAlgo">Indica se o controle do menu apresentará o 'Tecle algo para continuar' ao final da execução</param>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Interface.Menu">
+            <summary>
+            Menu de interação da Console 
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Interface.Menu.Itens">
+            <summary>Lista de itens de menu</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Menu.#ctor(System.Object,System.Object)">
+            <summary>Contrutora da estrutura de menu.
+            Ex.: 
+            Menu menu = new Menu(
+                        new ItemMenu[] {
+                        new ItemMenu( new KeyValuePair&lt;int,string&gt;(1, "Listar"), Listar, false),
+                        new ItemMenu( new KeyValuePair&lt;int,string&gt;(0, "Sair"), null, true)
+                        }, objetoParametro);
+            </summary>
+            <param name="itens">List de ItemMenu ou vetor de ItemMenu </param>
+            <param name="parametro">Parâmetro a ser passado para a função de destino</param>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.Interface.Menu.DicionarioItens">
+            <summary>
+            Dicionário de dados que possui uma coleção dos itens de menu
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Interface.Menu.DelegateExecutaMenu">
+            <summary>Assinatura do método de retorno quando uma ação do menu é acionada</summary>
+            <param name="parametro">Parâmetro que foi passado ao construtor do Menu</param>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Interface.Menu.DelegateAcaoMenu">
+            <summary>Assinatura do método de retorno após a impressão do título do menu pelo método ControlaMenu</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Interface.Util">
+            <summary>
+            Classe com método úteis para facilitar o aprendizado
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Util.DescricaoEnum(System.Enum)">
+            <summary>
+            Fornece a descrição de um item de um enum
+            </summary>
+            <param name="e">Valor do enum</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Util.ValidaCpf(System.String)">
+            <summary>
+            Valida se um CPF é válido
+            </summary>
+            <param name="cpf">CPF com 11 dígitos e zeros à esquerda</param>
+            <returns>True se o CPF for válido</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Util.ValidaCnpj(System.String)">
+            <summary>
+            Valida se um CNPJ é válido
+            </summary>
+            <param name="cnpj">CNPJ com 14 dígitos e zeros à esquerda</param>
+            <returns>True se o CNPJ for válido</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Util.T2String``1(``0)">
+            <summary>Converte um tipo de classe ou estrutura T em String serializado</summary>
+            <param name="classe">Objeto a ser convertido</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Util.String2T``1(System.String)">
+            <summary>Converte um tipo string XML serializado em um tipo de classe ou struct</summary>
+            <param name="xml">XML serializado ou string da área da estrutura</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Util.Byte2T``1(System.Byte[])">
+            <summary>Converte um vetor de bytes em uma estrutura</summary>
+            <param name="vetor">Vetor de bytes</param>
+            <returns>Struct do tipo T</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Util.Char2T``1(System.Char[])">
+            <summary>Converte um vetor de chars em uma estrutura</summary>
+            <param name="vetor">Vetor de chars</param>
+            <returns>Struct do tipo T</returns>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.MensagemInvalidaException">
+            <summary>
+            Classe de informação de mensagem inválida
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.MensagemInvalidaException.#ctor">
+            <summary>
+            Construtora da classe
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.MultiplosDadosException">
+            <summary>
+            Exceção de múltiplos registros afetados pela execução do comando
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.MultiplosDadosException.#ctor">
+            <summary>
+            Construtora da classe
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.RegistroInexistenteMensagem">
+            <summary>
+            Mensagem de registro inexistente
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.RegistroInexistenteMensagem.#ctor">
+            <summary>
+            Construtora da classe
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.RN.AplicacaoRegraNegocio">
+            <summary>
+            Regra de negócio
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.Campo">
+            <summary>
+            Classe que representa um campo da tabela, utilizada pela classe Linha
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.Campo.Nome">
+            <summary>
+            Nome do campo na base de dados
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.Campo.Conteudo">
+            <summary>
+            Conteúdo do campo lido da base de dados
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.Campo.#ctor(System.String,System.Object)">
+            <summary>
+            Construtora da classe
+            </summary>
+            <param name="nome">Nome do campo na base de dados</param>
+            <param name="conteudo">Conteúdo do campo</param>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.AplicacaoDados">
+            <summary>Executa um comando no banco</summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.AplicacaoDados.Sql">
+            <summary>
+            SQL que será executado na base de dados
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.AplicacaoDados.#ctor">
+            <summary>Construtora da classe</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.AplicacaoDados.Consultar">
+            <summary>
+            Executa uma consulta ao banco
+            </summary>
+            <returns>Lista de linhas retornadas</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.AplicacaoDados.Executar">
+            <summary>
+            Executa um comando no banco de dados, gera exceção MultiplosDadosException caso mais de 1 registro seja excluído/alterado/incluído
+            </summary>
+            <returns>Retorno a quantidade de registros afetados</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.AplicacaoDados.ExecutarMultiplosDados">
+            <summary>
+            Executa um comando no banco de dados
+            </summary>
+            <returns>Retorno a quantidade de registros afetados</returns>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.AplicacaoDados.MontarCampo">
+            <summary>
+            Delegate que será executado na montagem dos campos
+            </summary>
+            <param name="nomeCampo"></param>
+            <param name="campo"></param>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1">
+            <summary>Estrutura que representa um campo da tabela</summary>
+            <typeparam name="T">Tipo de dado do campo</typeparam>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.ICampo">
+            <summary>
+            Interface que representa um campo da tabela
+            </summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.BD.ICampo.TemConteudo">
+            <summary>
+            Indica se o campo possui conteúdo
+            </summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.BD.ICampo.FoiSetado">
+            <summary>
+            Indica se o campo teve atribuição
+            </summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.BD.ICampo.Conteudo">
+            <summary>
+            Retorna o conteúdo do campo, caso não tenha sido setado, retorna null
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.ToString">
+            <summary>
+            Retorna o conteúdo do campo no formato String
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.LerConteudoOuPadrao">
+            <summary>
+            Retorna o conteúdo do campo, caso não tenha sido setado, retorna default(T)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.LerConteudoOuPadrao(`0)">
+            <summary>
+            Retorna o conteúdo do campo, caso não tenha sido setado, retorna default(T)
+            </summary>
+            <param name="padrao">Valor padrão de retorno caso seja null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.#ctor(System.Object)">
+            <summary>
+            Contrutora que aceita null como parâmetro
+            </summary>
+            <param name="conteudo"></param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.#ctor(`0)">
+            <summary>
+            Construtora para inicialização do campo
+            </summary>
+            <param name="conteudo"></param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.op_Implicit(`0)~Bergs.Pxc.Pxcoiexn.BD.CampoTabela{`0}">
+            <summary>
+            Inicializa um conteúdo para o campo
+            </summary>
+            <param name="operando"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.op_Implicit(Bergs.Pxc.Pxcoiexn.BD.CampoTabela{`0})~`0">
+            <summary>
+            Retorna o conteúdo já tipado
+            </summary>
+            <param name="operando">Campo da tabela</param>
+            <returns>Conteúdo do tipo T</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.GetSchema">
+            <summary>Retorna o Schema do XML</summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.ReadXml(System.Xml.XmlReader)">
+            <summary></summary>
+            <param name="reader"></param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.WriteXml(System.Xml.XmlWriter)">
+            <summary></summary>
+            <param name="writer"></param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.op_Inequality(Bergs.Pxc.Pxcoiexn.BD.CampoTabela{`0},Bergs.Pxc.Pxcoiexn.BD.CampoTabela{`0})">
+            <summary>
+            Compara a diferença de dois objetos Bergs.Pwx.Pxcoiexn.CampoTabela.
+            </summary>
+            <param name="operando1">Um objeto do tipo CampoTabela</param>
+            <param name="operando2">Um objeto do tipo CampoTabela</param>
+            <returns>true se os operandos são diferentes, senão, false.</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.op_Equality(Bergs.Pxc.Pxcoiexn.BD.CampoTabela{`0},Bergs.Pxc.Pxcoiexn.BD.CampoTabela{`0})">
+            <summary>
+            Compara a igualdade de dois objetos Bergs.Pwx.Pxcoiexn.CampoTabela.
+            </summary>
+            <param name="operando1">Um objeto do tipo CampoTabela</param>
+            <param name="operando2">Um objeto do tipo CampoTabela</param>
+            <returns>true se os operandos são iguais, senão, false.</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.Equals(System.Object)">
+            <summary>
+            Compara se o objeto é igual ao CampoTabela
+            </summary>
+            <param name="obj">Objeto a ser comparado</param>
+            <returns>true se o conteúdo dos objetos forem iguais</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.GetHashCode">
+            <summary>
+            Retorno o HashCode
+            </summary>
+            <returns>Código hash do Conteudo se TemConteudo for true, senão, zero.</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.Equals(`0)">
+            <summary>
+            Compara se o objeto é igual ao CampoTabela
+            </summary>
+            <param name="obj">Objeto a ser comparado</param>
+            <returns>true se o conteúdo dos objetos forem iguais</returns>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.TemConteudo">
+            <summary>
+            Retorna true se possuir conteúdo diferente de null (caso não tenha sido setado, retorna false)
+            </summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.Conteudo">
+            <summary>Retorna o conteúdo do campo, caso não tenha sido setado, retorna null</summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcoiexn.BD.CampoTabela`1.FoiSetado">
+            <summary>Retorna informação de que o campo foi setado, caso tenha sido atribuído</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.Linha">
+            <summary>
+            Classe que representa um registro no banco de dados
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.BD.Linha.Campos">
+            <summary>
+            Coleção de campos de um registro da tabela
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.Linha.#ctor">
+            <summary>
+            Construtora da classe que inicializa a coleção de campos da tabela
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Retorno`1">
+            <summary>
+            Estrutura de retorno com controle de conversão
+            </summary>
+            <typeparam name="T">Tipo de dado a ser retornado</typeparam>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Retorno`1.#ctor(System.Boolean,`0,Bergs.Pxc.Pxcoiexn.Mensagem)">
+            <summary>
+            Construtor da classe
+            </summary>
+            <param name="Ok"></param>
+            <param name="Dados">Dados para serem retornados</param>
+            <param name="mensagem">Mensagem, no caso de existir</param>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Retorno`1.Ok">
+            <summary>
+            Indica se o método foi realizado com sucesso
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Retorno`1.Dados">
+            <summary>
+            Dados retornados pelo método chamado
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Retorno`1.Mensagem">
+            <summary>
+            Mensagem retornada pelo método
+            </summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.BD.TOTabela">
+            <summary>Classe que representa uma tabela do banco de dados</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.TOTabela.PopularRetorno(Bergs.Pxc.Pxcoiexn.BD.Linha)">
+            <summary>Método que popula os campos da tabela recebendo as informações do registro</summary>
+            <param name="linha"></param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.BD.TOTabela.LeCampoTabela``1(System.Object)">
+            <summary>
+            Retorna um campo da tabela já inicializado, se o mesmo for null, já inicializa, caso contrário já realiza a conversão do tipo
+            </summary>
+            <typeparam name="T">Tipo de dado do campo na tabela</typeparam>
+            <param name="conteudo">Conteúdo do campo</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Interface.Tela">
+            <summary>
+            Classe de interação com o usuário utilizando "Console.Write"
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.ControlaMenu(System.String,Bergs.Pxc.Pxcoiexn.Interface.Menu)">
+            <summary>
+            Função que controla o menu
+            </summary>
+            <param name="titulo">Título do menu</param>
+            <param name="menu">Menu do programa</param>
+            <returns>Retorna o item selecionado que tenha a opção de interrupção</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.ControlaMenu(System.String,Bergs.Pxc.Pxcoiexn.Interface.Menu,Bergs.Pxc.Pxcoiexn.Interface.Menu.DelegateAcaoMenu)">
+            <summary>
+            Função que controla o menu
+            </summary>
+            <param name="titulo">Título do menu</param>
+            <param name="menu">Menu do programa</param>
+            <param name="funcao">Método a ser chamado após a impressão do título</param>
+            <returns>Retorna o item selecionado que tenha a opção de interrupção</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.Ler``1(System.String)">
+            <summary>
+            Lê um texto/número do teclado
+            </summary>
+            <typeparam name="T">Tipo "primitivo" de dados esperado como retorno, deve implementar a interface IConvertible</typeparam>
+            <param name="label">Texto a ser apresentado ao usuário</param>
+            <returns>Retorna o texto convertido</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.LerInfo``1(System.String)">
+            <summary>Função que lê uma informação da tela</summary>
+            <typeparam name="T">Tipo esperado de retorno na leitura, deve implementar a interface IConvertible</typeparam>
+            <param name="label">Texto a ser apresentado ao usuário</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.Confirma(System.String)">
+            <summary>
+            Função que lê S/N do teclado
+            </summary>
+            <param name="mensagem">Mensagem a ser apresentada ao usuário</param>
+            <returns>Retorna true se o usuário digitou 'S' ou 's'</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.Confirma(System.String,System.String)">
+            <summary>
+            Função que lê um caracter do teclado
+            </summary>
+            <param name="mensagem">Texto a ser apresentado ao usuário</param>
+            <param name="validos">Caracteres aceitos pela função</param>
+            <returns>Retorna o caracter válido digitado</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.MostrarMenu(System.String,System.Collections.Generic.Dictionary{System.Int32,System.String},System.Int32@)">
+            <summary>
+            Monta o menu de interação a partir de um dicionário de dados
+            </summary>
+            <param name="titulo">Título do menu</param>
+            <param name="menu">Lista de opções do menu</param>
+            <param name="op">opção informada pelo usuário</param>
+            <returns>Retorna true se a opção informada é um item existente na lista</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.MostrarMenu(System.String,System.Collections.Generic.Dictionary{System.Int32,System.String},System.Int32@,Bergs.Pxc.Pxcoiexn.Interface.Menu.DelegateAcaoMenu)">
+            <summary>
+            Monta o menu de interação a partir de um dicionário de dados
+            </summary>
+            <param name="titulo">Título do menu</param>
+            <param name="menu">Lista de opções do menu</param>
+            <param name="op">opção informada pelo usuário</param>
+            <param name="funcao">Método a ser chamado após a impressão do título</param>
+            <returns>Retorna true se a opção informada é um item existente na lista</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.MostrarMenu(System.String,System.Enum,System.Boolean)">
+            <summary>
+            Função que mostra o menu na tela
+            </summary>
+            <param name="titulo"></param>
+            <param name="menu"></param>
+            <param name="opcaoInt">True se as opções forem numéricas, False caso seja char</param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.ImprimeLista(System.String,Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista[],System.Collections.Generic.List{Bergs.Pxc.Pxcoiexn.Interface.LinhaLista})">
+            <summary>
+            Imprime uma lista na tela
+            </summary>
+            <param name="titulo">Título da lista</param>
+            <param name="cabecalho">Nome do cabeçalho das colunas</param>
+            <param name="registros">Conteúdo da lista</param>
+            <returns>Retorna o índice da lista selecionada</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.ImprimeLista(System.String,Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista[],System.Collections.Generic.List{Bergs.Pxc.Pxcoiexn.Interface.LinhaLista},System.Boolean)">
+            <summary>
+            Imprime uma lista na tela
+            </summary>
+            <param name="titulo">Título da lista</param>
+            <param name="cabecalho">Nome do cabeçalho das colunas</param>
+            <param name="registros">Conteúdo da lista</param>
+            <param name="controlaPaginacao">Indica se deve controlar a paginação na lista</param>
+            <returns>Retorna o índice da lista selecionada</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.ImprimeLista(System.String,Bergs.Pxc.Pxcoiexn.Interface.CabecalhoLista[],System.Collections.Generic.List{Bergs.Pxc.Pxcoiexn.Interface.LinhaLista},System.Int32)">
+            <summary>
+            Imprime uma lista na tela
+            </summary>
+            <param name="titulo">Título da lista</param>
+            <param name="cabecalho">Nome do cabeçalho das colunas</param>
+            <param name="registros">Conteúdo da lista</param>
+            <param name="registrosPorPagina">Número de registros por página para paginação</param>
+            <returns>Retorna o índice da lista selecionada</returns>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcoiexn.Interface.Tela.RetornoLeitura`1">
+            <summary>
+            Estrutura de retorno com controle de conversão
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcoiexn.Interface.Tela.RetornoLeitura`1.#ctor(System.Boolean,`0)">
+            <summary>
+            Contrutor
+            </summary>
+            <param name="Ok"></param>
+            <param name="Dados"></param>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Interface.Tela.RetornoLeitura`1.Ok">
+            <summary>
+            Indica se o método executou sem erros
+            </summary>
+        </member>
+        <member name="F:Bergs.Pxc.Pxcoiexn.Interface.Tela.RetornoLeitura`1.Dados">
+            <summary>
+            Dados retornados pelo método chamado
+            </summary>
+        </member>
+    </members>
+</doc>

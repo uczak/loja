@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pxcqt1xn</name>
+    </assembly>
+    <members>
+        <member name="T:Bergs.Pxc.Pxcqt1xn.BDTabela1">
+            <summary>
+            Classe de acesso a tabela TABELA1
+            </summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcqt1xn.BDTabela1.Listar(Bergs.Pxc.Pxcbtoxn.TOTabela1)">
+            <summary>
+            Executa o comando de consulta na tabela
+            </summary>
+            <param name="toTabela1">Campos para pesquisa na tabela</param>
+            <returns>Retorna a lista consultada</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcqt1xn.BDTabela1.Incluir(Bergs.Pxc.Pxcbtoxn.TOTabela1)">
+            <summary>
+            Executa o comando de inclusão na tabela
+            </summary>
+            <param name="toTabela1">Campos para inclusão</param>
+            <returns>Retorna a quantidade de registros incluídos</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcqt1xn.BDTabela1.Alterar(Bergs.Pxc.Pxcbtoxn.TOTabela1)">
+            <summary>
+            Executa o comando de atualização na tabela
+            </summary>
+            <param name="toTabela1">Campos para alteração</param>
+            <returns>Retorna a quantidade de registros atualizados</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcqt1xn.BDTabela1.Excluir(Bergs.Pxc.Pxcbtoxn.TOTabela1)">
+            <summary>
+            Executa o comando de exclusão na tabela
+            </summary>
+            <param name="toTabela1">Campos para filtro da exclusão</param>
+            <returns>Retorna a quantidade de registros excluídos</returns>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcqt1xn.BDTabela1.MontarCamposChave(Bergs.Pxc.Pxcoiexn.BD.AplicacaoDados.MontarCampo,Bergs.Pxc.Pxcbtoxn.TOTabela1)">
+            <summary>
+            Campos de chave primária da tabela
+            </summary>
+            <param name="montagem"></param>
+            <param name="toTabela1"></param>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcqt1xn.BDTabela1.MontarCampos(Bergs.Pxc.Pxcoiexn.BD.AplicacaoDados.MontarCampo,Bergs.Pxc.Pxcbtoxn.TOTabela1)">
+            <summary>
+            Campos não chave primária na tabela
+            </summary>
+            <param name="montagem">Método que será acionado na execução</param>
+            <param name="toTabela1">Campos da tabela</param>
+        </member>
+    </members>
+</doc>

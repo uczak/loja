@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pxcbtoxn</name>
+    </assembly>
+    <members>
+        <member name="T:Bergs.Pxc.Pxcbtoxn.TOCliente">
+            <summary>Classe para manipulação dos campos da tabela CLIENTE</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcbtoxn.TOCliente.PopularRetorno(Bergs.Pxc.Pxcoiexn.BD.Linha)">
+            <summary>Método para popular os campos da TOCliente</summary>
+            <param name="linha">Linha para popular os campos da TOCliente</param>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcbtoxn.TOCliente.CodCliente">
+            <summary>Campo COD_CLIENTE da tabela CLIENTE</summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcbtoxn.TOCliente.NomeCliente">
+            <summary>Campo NOME_CLIENTE da tabela CLIENTE</summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcbtoxn.TOCliente.Telefone">
+            <summary>Campo TELEFONE da tabela CLIENTE</summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcbtoxn.TOCliente.TipoPessoa">
+            <summary>Campo TIPO_PESSOA da tabela CLIENTE</summary>
+        </member>
+        <member name="T:Bergs.Pxc.Pxcbtoxn.TOTabela1">
+            <summary>Classe para manipulação dos campos da tabela TABELA1</summary>
+        </member>
+        <member name="M:Bergs.Pxc.Pxcbtoxn.TOTabela1.PopularRetorno(Bergs.Pxc.Pxcoiexn.BD.Linha)">
+            <summary>Método para popular os campos da TOTabela1</summary>
+            <param name="linha">Linha para popular os campos da TOTabela1</param>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcbtoxn.TOTabela1.Codigo">
+            <summary>Campo CODIGO da tabela TABELA1</summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcbtoxn.TOTabela1.Data">
+            <summary>Campo DATA da tabela TABELA1</summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcbtoxn.TOTabela1.Texto">
+            <summary>Campo TEXTO da tabela TABELA1</summary>
+        </member>
+        <member name="P:Bergs.Pxc.Pxcbtoxn.TOTabela1.Valor">
+            <summary>Campo VALOR da tabela TABELA1</summary>
+        </member>
+    </members>
+</doc>
